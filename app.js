@@ -74,14 +74,15 @@ async function addTeamsToRepo(repo, teams) {
  */
 async function main() {
 	// environment variables.
-	const { GH_KEY, REPO } = process.env;
+	const { GH_KEY, REPO, SOMETHINGELSE } = process.env;
 
 	// Set up github authentication
 	// Alters octokit to include auth headers in subsequent requests
 	octokit.authenticate({
 		type: 'basic',
 		username: GH_KEY,
-		password: 'x-oauth-basic'
+		password: 'x-oauth-basic',
+		thing: SOMETHINGELSE
 	});
 
 	await createRepo(REPO);
