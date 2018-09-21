@@ -75,7 +75,7 @@ async function addTeamsToRepo(repo, teams) {
 async function main() {
 	// Check that the required environment variables exist.
 	const { GH_KEY, REPO, SOMETHINGELSE } = process.env;
-	if (!GH_KEY || !REPO) {
+	if (!GH_KEY || !REPO || !TESTING) {
 		throw new Error(`Environment variable "${env_var}" is required`);
 	}
 
