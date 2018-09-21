@@ -73,8 +73,11 @@ async function addTeamsToRepo(repo, teams) {
  * Main application logic
  */
 async function main() {
-	// environment variables.
+	// Check that the required environment variables exist.
 	const { GH_KEY, REPO, SOMETHINGELSE } = process.env;
+	if (!GH_KEY || !REPO) {
+		throw new Error(`Environment variable "${env_var}" is required`);
+	}
 
 	// Set up github authentication
 	// Alters octokit to include auth headers in subsequent requests
