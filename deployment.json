@@ -1,6 +1,6 @@
 {
   "deployment": {
-    "application": "conflix",
-    "environment": "prod"
+    "application": "conflix-dev01",
+    "environment": "uat"
   }
 }
