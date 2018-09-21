@@ -1,0 +1,6 @@
+{
+  "deployment": {
+    "application": "conflix",
+    "environment": "prod"
+  }
+}
