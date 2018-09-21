@@ -38,6 +38,38 @@ async function createRepo(repo) {
 }
 
 /**
+ * Adds the given teams to the repo's permissions list
+ * 
+ * @param {string} repo - repo name
+ * @param {Object[]} teams - Array of teams whose permissions should be added to the repo
+ * @param {number} teams[].id - ID of the team
+ * @param {string} teams[].name - Name of the team
+ * @returns {Promise} - GitHub response
+ * @throws Throws an error if GitHub fails to add the team to the permissions list
+ */
+async function addTeamsToRepo(repo, teams) {
+	try {
+		const promises = teams.map(team => {
+			console.log(`Adding ${team.name}`);
+			return octokit.orgs.addTeamRepo({
+				org: 'someorg',
+				repo: repo,
+				id: team.id,
+				permission: team.perm,
+			});
+		});
+
+		const results = await Promise.all(promises);
+		console.log(`Successfully added all teams.`);
+		return results;
+
+	} catch (e) {
+		e = JSON.parse(e.message);
+		throw new Error(`Error adding team: "${team.name}", ${e.message}`);
+	}
+}
+
+/**
  * Main application logic
  */
 async function main() {
@@ -53,6 +85,7 @@ async function main() {
 	});
 
 	await createRepo(REPO);
+	await addTeamsToRepo(REPO, TEAMS);
 }
 /**
  * Run async and trap errors
